@@ -107,6 +107,136 @@ app.post("/register", (req, res) => {
     });
 });
 
+app.post("/login", (req, res) => {
+    const { email, password } = req.body;
+
+    const sql = "SELECT * FROM users WHERE email = ?";
+
+    db.query(sql, [email], (err, result) => {
+        if (err) {
+            return res.json(err);
+        }
+
+        if (result.length === 0) {
+            return res.json({
+                message: "User not found"
+            });
+        }
+
+        const user = result[0];
+
+        const validPassword = bcrypt.compareSync(
+            password,
+            user.password
+        );
+
+        if (!validPassword) {
+            return res.json({
+                message: "Wrong password"
+            });
+        }
+
+        const token = jwt.sign(
+            {
+                id: user.id,
+                email: user.email
+            },
+            "secretkey"
+        );
+
+        res.json({
+            message: "Login successful",
+            token: token
+        });
+    });
+});
+
+app.post("/lost-items", (req, res) => {
+    const {
+        user_id,
+        item_name,
+        description,
+        date_lost,
+        location
+    } = req.body;
+
+    const sql = `
+        INSERT INTO lost_items
+        (user_id, item_name, description, date_lost, location)
+        VALUES (?, ?, ?, ?, ?)
+    `;
+
+    db.query(
+        sql,
+        [user_id, item_name, description, date_lost, location],
+        (err, result) => {
+            if (err) {
+                return res.json(err);
+            }
+
+            res.json({
+                message: "Lost item added successfully"
+            });
+        }
+    );
+});
+
+app.get("/lost-items", (req, res) => {
+    db.query(
+        "SELECT * FROM lost_items",
+        (err, result) => {
+            if (err) {
+                return res.json(err);
+            }
+
+            res.json(result);
+        }
+    );
+});
+
+app.post("/lost-items", (req, res) => {
+    const {
+        user_id,
+        item_name,
+        description,
+        date_lost,
+        location
+    } = req.body;
+
+    const sql = `
+        INSERT INTO lost_items
+        (user_id, item_name, description, date_lost, location)
+        VALUES (?, ?, ?, ?, ?)
+    `;
+
+    db.query(
+        sql,
+        [user_id, item_name, description, date_lost, location],
+        (err, result) => {
+            if (err) {
+                return res.json(err);
+            }
+
+            res.json({
+                message: "Lost item added successfully"
+            });
+        }
+    );
+});
+
+app.get("/lost-items", (req, res) => {
+    db.query(
+        "SELECT * FROM lost_items",
+        (err, result) => {
+            if (err) {
+                return res.json(err);
+            }
+
+            res.json(result);
+        }
+    );
+});
+
 app.listen(5000, () => {
     console.log("Server running on port 5000");
 });
