@@ -237,6 +237,49 @@ app.get("/lost-items", (req, res) => {
     );
 });
 
+app.post("/found-items", (req, res) => {
+    const {
+        user_id,
+        item_name,
+        description,
+        date_found,
+        location
+    } = req.body;
+
+    const sql = `
+        INSERT INTO found_items
+        (user_id, item_name, description, date_found, location)
+        VALUES (?, ?, ?, ?, ?)
+    `;
+
+    db.query(
+        sql,
+        [user_id, item_name, description, date_found, location],
+        (err, result) => {
+            if (err) {
+                return res.json(err);
+            }
+
+            res.json({
+                message: "Found item added successfully"
+            });
+        }
+    );
+});
+
+app.get("/found-items", (req, res) => {
+    db.query(
+        "SELECT * FROM found_items",
+        (err, result) => {
+            if (err) {
+                return res.json(err);
+            }
+
+            res.json(result);
+        }
+    );
+});
+
 app.listen(5000, () => {
     console.log("Server running on port 5000");
 });
