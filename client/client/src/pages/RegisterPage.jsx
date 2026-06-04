@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function RegisterPage() {
   const [name, setName] = useState("");
@@ -71,6 +72,10 @@ function RegisterPage() {
           Register
         </button>
       </form>
+      <p>
+            Already have an account?{" "}
+            <Link to="/">Login</Link>
+        </p>
     </div>
   );
 }
