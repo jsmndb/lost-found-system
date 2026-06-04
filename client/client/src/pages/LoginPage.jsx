@@ -12,14 +12,19 @@ function LoginPage() {
       const response = await axios.post(
         "http://localhost:5000/login",
         {
-          email,
-          password,
+            email,
+            password,
         }
       );
 
-      console.log(response.data);
+    localStorage.setItem(
+        "token",
+        response.data.token
+    );
 
-      alert(response.data.message);
+    console.log(response.data);
+
+    alert(response.data.message);
     } catch (error) {
       console.error(error);
       alert("Login failed");
