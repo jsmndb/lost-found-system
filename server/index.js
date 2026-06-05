@@ -310,6 +310,45 @@ app.post("/found-items", (req, res) => {
   );
 });
 
+    app.get("/match-items", (req, res) => {
+    const lostSql = "SELECT * FROM lost_items";
+    const foundSql = "SELECT * FROM found_items";
+
+    db.query(lostSql, (err, lostResults) => {
+        if (err) return res.status(500).json(err);
+
+        db.query(foundSql, (err, foundResults) => {
+        if (err) return res.status(500).json(err);
+
+        let matches = [];
+
+        lostResults.forEach((lost) => {
+            foundResults.forEach((found) => {
+
+            // 🔥 SMART MATCH LOGIC (ADD THIS)
+            const lostWords = lost.item_name.toLowerCase().split(" ");
+            const foundWords = found.item_name.toLowerCase().split(" ");
+
+            const isMatch = lostWords.some(word =>
+                foundWords.includes(word)
+            );
+
+            if (isMatch) {
+                matches.push({
+                lost_item: lost,
+                found_item: found,
+                message: "Possible Match Found"
+                });
+            }
+
+            });
+        });
+
+        res.json(matches);
+        });
+    });
+    });
+
 app.listen(5000, () => {
     console.log("Server running on port 5000");
 });

@@ -76,6 +76,19 @@ function Dashboard() {
           <p>View all found items</p>
         </div>
 
+  <div
+    style={{
+      border: "2px solid gold",
+      padding: "20px",
+      width: "200px",
+      borderRadius: "10px",
+      cursor: "pointer"
+    }}
+    onClick={() => navigate("/matches")}
+  >
+    <h3>🧠 Smart Matches</h3>
+    <p>Find possible matches</p>
+  </div>
       </div>
 
       {/* LOGOUT */}

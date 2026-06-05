@@ -6,6 +6,7 @@ import LostItemForm from "./pages/LostItemForm";
 import LostItemsList from "./pages/LostItemsList";
 import FoundItemForm from "./pages/FoundItemForm";
 import FoundItemsList from "./pages/FoundItemsList";
+import MatchItems from "./pages/MatchItems";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/lost-items" element={<LostItemsList />} />
         <Route path="/report-found" element={<FoundItemForm />} />
         <Route path="/found-items" element={<FoundItemsList />} />
+        <Route path="/matches" element={<MatchItems />} />
       </Routes>
     </BrowserRouter>
   );
