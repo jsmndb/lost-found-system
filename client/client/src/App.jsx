@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import LostItemForm from "./pages/LostItemForm";
 import LostItemsList from "./pages/LostItemsList";
 import FoundItemForm from "./pages/FoundItemForm";
+import FoundItemsList from "./pages/FoundItemsList";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/report-lost" element={<LostItemForm />} />
         <Route path="/lost-items" element={<LostItemsList />} />
         <Route path="/report-found" element={<FoundItemForm />} />
+        <Route path="/found-items" element={<FoundItemsList />} />
       </Routes>
     </BrowserRouter>
   );

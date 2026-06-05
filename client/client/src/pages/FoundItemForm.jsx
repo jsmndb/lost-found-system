@@ -37,7 +37,7 @@ function FoundItemForm() {
   };
 
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       <h2>Report Found Item</h2>
 
       <form onSubmit={handleSubmit}>
