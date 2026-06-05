@@ -268,16 +268,15 @@ app.post("/found-items", (req, res) => {
 });
 
     app.get("/found-items", (req, res) => {
-        db.query(
-            "SELECT * FROM found_items",
-            (err, result) => {
-                if (err) {
-                    return res.json(err);
-                }
+    const sql = "SELECT * FROM found_items";
 
-                res.json(result);
-            }
-        );
+    db.query(sql, (err, results) => {
+        if (err) {
+        return res.status(500).json(err);
+        }
+
+        res.json(results);
+    });
     });
 
     app.get("/lost-items", (req, res) => {
@@ -291,7 +290,26 @@ app.post("/found-items", (req, res) => {
         res.json(results);
     });
     });
-    
+
+app.post("/found-items", (req, res) => {
+  const { user_id, item_name, description, date_found, location } = req.body;
+
+  const sql =
+    "INSERT INTO found_items (user_id, item_name, description, date_found, location) VALUES (?, ?, ?, ?, ?)";
+
+  db.query(
+    sql,
+    [user_id, item_name, description, date_found, location],
+    (err, result) => {
+      if (err) {
+        return res.status(500).json(err);
+      }
+
+      res.json({ message: "Found item added successfully" });
+    }
+  );
+});
+
 app.listen(5000, () => {
     console.log("Server running on port 5000");
 });

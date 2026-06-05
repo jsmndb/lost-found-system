@@ -24,6 +24,10 @@ function Dashboard() {
         <button onClick={() => navigate("/lost-items")}>
         View Lost Items
       </button>
+
+        <button onClick={() => navigate("/report-found")}>
+        Report Found Item
+      </button>
     </div>
   );
 }
