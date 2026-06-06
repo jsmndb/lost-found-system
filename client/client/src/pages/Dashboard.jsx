@@ -1,7 +1,23 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Dashboard() {
   const navigate = useNavigate();
+  const [stats, setStats] = useState({ lost: 0, found: 0 });
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/stats");
+        setStats(response.data);
+      } catch (error) {
+        console.error("Error fetching stats:", error);
+      }
+    };
+
+    fetchStats();
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -10,8 +26,16 @@ function Dashboard() {
 
   return (
     <div style={{ padding: "20px", fontFamily: "Arial" }}>
+      
       <h1>Lost & Found Dashboard</h1>
       <p>Welcome! Manage lost and found items below.</p>
+
+    <div style={{ marginBottom: "20px" }}>
+    <h2>System Stats</h2>
+
+    <p>📦 Lost Items: {stats.lost}</p>
+    <p>🎯 Found Items: {stats.found}</p>
+  </div>
 
       {/* CARDS CONTAINER */}
       <div style={{ display: "flex", gap: "20px", marginTop: "20px" }}>
