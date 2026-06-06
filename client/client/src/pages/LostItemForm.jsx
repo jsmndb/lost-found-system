@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 function LostItemForm() {
   const [itemName, setItemName] = useState("");
@@ -10,6 +11,10 @@ function LostItemForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const token = localStorage.getItem("token");
+    const decoded = jwtDecode(token);
+    const userId = decoded.id;
+    
     try {
       const userId = 1; // temporary (later we will get from token)
 
@@ -25,7 +30,6 @@ function LostItemForm() {
       );
 
       alert(response.data.message);
-
       // clear form
       setItemName("");
       setDescription("");

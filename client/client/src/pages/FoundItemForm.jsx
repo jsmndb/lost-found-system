@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 function FoundItemForm() {
   const [itemName, setItemName] = useState("");
@@ -10,6 +11,9 @@ function FoundItemForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const token = localStorage.getItem("token");
+    const decoded = jwtDecode(token);
+    const userId = decoded.id;
     try {
       const userId = 1;
 
