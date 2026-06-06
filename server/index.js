@@ -325,19 +325,27 @@ app.post("/found-items", (req, res) => {
         lostResults.forEach((lost) => {
             foundResults.forEach((found) => {
 
-            // 🔥 SMART MATCH LOGIC (ADD THIS)
             const lostWords = lost.item_name.toLowerCase().split(" ");
             const foundWords = found.item_name.toLowerCase().split(" ");
 
-            const isMatch = lostWords.some(word =>
-                foundWords.includes(word)
-            );
+            let matchCount = 0;
 
-            if (isMatch) {
+            lostWords.forEach(word => {
+                if (foundWords.includes(word)) {
+                matchCount++;
+                }
+            });
+
+            const totalWords = lostWords.length;
+
+            const score = Math.round((matchCount / totalWords) * 100);
+
+            // ONLY SHOW GOOD MATCHES
+            if (score >= 50) {
                 matches.push({
                 lost_item: lost,
                 found_item: found,
-                message: "Possible Match Found"
+                score: score
                 });
             }
 
