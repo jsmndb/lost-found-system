@@ -28,6 +28,10 @@ function LoginPage() {
 
     localStorage.setItem("token", response.data.token);
 
+    // Decode the token to get user information
+    const decodedToken = jwtDecode(response.data.token);
+    localStorage.setItem("user", JSON.stringify(decodedToken));
+
     alert(response.data.message);
     navigate("/dashboard");
     } catch (error) {
