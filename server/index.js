@@ -357,26 +357,33 @@ app.post("/found-items", (req, res) => {
     });
     });
 
-        app.get("/stats", (req, res) => {
+    app.get("/stats", (req, res) => {
 
-    const lostQuery = "SELECT COUNT(*) AS lostCount FROM lost_items";
-    const foundQuery = "SELECT COUNT(*) AS foundCount FROM found_items";
+  const lostQuery = "SELECT COUNT(*) AS lost FROM lost_items";
+  const foundQuery = "SELECT COUNT(*) AS found FROM found_items";
+  const matchQuery = "SELECT COUNT(*) AS matches FROM lost_items";
 
-    db.query(lostQuery, (err, lostResult) => {
-        if (err) return res.status(500).json(err);
+  db.query(lostQuery, (err, lostResult) => {
+    if (err) return res.status(500).json(err);
 
-        db.query(foundQuery, (err, foundResult) => {
+    db.query(foundQuery, (err, foundResult) => {
+      if (err) return res.status(500).json(err);
+
+      db.query(matchQuery, (err, matchResult) => {
         if (err) return res.status(500).json(err);
 
         res.json({
-            lost: lostResult[0].lostCount,
-            found: foundResult[0].foundCount
+          lost: lostResult[0].lost,
+          found: foundResult[0].found,
+          matches: matchResult[0].matches
         });
-        });
+      });
 
     });
 
-    });
+  });
+
+});
 
 app.listen(5000, () => {
     console.log("Server running on port 5000");
