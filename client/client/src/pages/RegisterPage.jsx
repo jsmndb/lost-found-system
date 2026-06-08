@@ -82,7 +82,7 @@ function RegisterPage() {
             lineHeight: "1.2",
           }}
         >
-          📝 Create Account
+          Create Account
         </h1>
 
         <p
