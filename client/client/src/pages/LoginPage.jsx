@@ -4,37 +4,6 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
-const pageStyle = {
-  padding: "30px",
-  fontFamily: "Arial",
-  background: "#f4f6f9",
-  minHeight: "100vh"
-};
-
-const cardStyle = {
-  background: "#fff",
-  padding: "20px",
-  borderRadius: "12px",
-  boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
-};
-
-const buttonStyle = {
-  padding: "10px 20px",
-  background: "#4d79ff",
-  color: "#fff",
-  border: "none",
-  borderRadius: "8px",
-  cursor: "pointer"
-};
-
-const inputStyle = {
-  width: "100%",
-  padding: "10px",
-  marginBottom: "12px",
-  border: "1px solid #ddd",
-  borderRadius: "8px"
-};
-
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -71,6 +40,37 @@ function LoginPage() {
     }
   };
 
+  const pageStyle = {
+  padding: "30px",
+  fontFamily: "Arial",
+  background: "#f4f6f9",
+  minHeight: "100vh"
+};
+
+  const cardStyle = {
+    background: "#fff",
+    padding: "20px",
+    borderRadius: "12px",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
+  };
+
+  const buttonStyle = {
+    padding: "10px 20px",
+    background: "#4d79ff",
+    color: "#fff",
+    border: "none",
+    borderRadius: "8px",
+    cursor: "pointer"
+  };
+
+  const inputStyle = {
+    width: "100%",
+    padding: "10px",
+    marginBottom: "12px",
+    border: "1px solid #ddd",
+    borderRadius: "8px"
+  };
+
   return (
     <div style={pageStyle}>
   <div
@@ -82,19 +82,26 @@ function LoginPage() {
   >
     <h1>📍 Lost & Found System</h1>
 
-    <input
-      type="email"
-      placeholder="Email"
-      style={inputStyle}
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        style={inputStyle}
     />
 
     <input
       type="password"
       placeholder="Password"
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
       style={inputStyle}
     />
 
-    <button style={buttonStyle}>
+    <button
+      style={buttonStyle}
+      onClick={handleLogin}
+    >
       Login
     </button>
 

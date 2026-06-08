@@ -14,10 +14,8 @@ function LostItemForm() {
     const token = localStorage.getItem("token");
     const decoded = jwtDecode(token);
     const userId = decoded.id;
-    
-    try {
-      const userId = 1; // temporary (later we will get from token)
 
+    try {
       const response = await axios.post(
         "http://localhost:5000/lost-items",
         {
@@ -30,7 +28,7 @@ function LostItemForm() {
       );
 
       alert(response.data.message);
-      // clear form
+
       setItemName("");
       setDescription("");
       setDateLost("");
@@ -41,46 +39,92 @@ function LostItemForm() {
     }
   };
 
+  const pageStyle = {
+    padding: "30px",
+    fontFamily: "Arial",
+    background: "#f4f6f9",
+    minHeight: "100vh"
+  };
+
+  const cardStyle = {
+    background: "#fff",
+    padding: "25px",
+    borderRadius: "12px",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+    maxWidth: "600px",
+    margin: "0 auto"
+  };
+
+  const inputStyle = {
+    width: "100%",
+    padding: "10px",
+    marginBottom: "15px",
+    border: "1px solid #ddd",
+    borderRadius: "8px",
+    boxSizing: "border-box"
+  };
+
+  const buttonStyle = {
+    width: "100%",
+    padding: "12px",
+    background: "#ff4d4d",
+    color: "#fff",
+    border: "none",
+    borderRadius: "8px",
+    cursor: "pointer",
+    fontSize: "16px"
+  };
+
   return (
-    <div>
-      <h2>Report Lost Item</h2>
+    <div style={pageStyle}>
+      <div style={cardStyle}>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Item Name"
-          value={itemName}
-          onChange={(e) => setItemName(e.target.value)}
-        />
-        <br /><br />
+        <h1>📦 Report Lost Item</h1>
 
-        <input
-          type="text"
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <br /><br />
+        <p style={{ color: "#666", marginBottom: "20px" }}>
+          Enter details about the lost item.
+        </p>
 
-        <input
-          type="date"
-          value={dateLost}
-          onChange={(e) => setDateLost(e.target.value)}
-        />
-        <br /><br />
+        <form onSubmit={handleSubmit}>
 
-        <input
-          type="text"
-          placeholder="Location Lost"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-        />
-        <br /><br />
+          <input
+            type="text"
+            placeholder="Item Name"
+            value={itemName}
+            onChange={(e) => setItemName(e.target.value)}
+            style={inputStyle}
+          />
 
-        <button type="submit">
-          Submit Lost Item
-        </button>
-      </form>
+          <input
+            type="text"
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            style={inputStyle}
+          />
+
+          <input
+            type="date"
+            value={dateLost}
+            onChange={(e) => setDateLost(e.target.value)}
+            style={inputStyle}
+          />
+
+          <input
+            type="text"
+            placeholder="Location Lost"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            style={inputStyle}
+          />
+
+          <button type="submit" style={buttonStyle}>
+            Submit Lost Item
+          </button>
+
+        </form>
+
+      </div>
     </div>
   );
 }
