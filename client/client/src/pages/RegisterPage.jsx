@@ -2,6 +2,37 @@ import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+const pageStyle = {
+  padding: "30px",
+  fontFamily: "Arial",
+  background: "#f4f6f9",
+  minHeight: "100vh"
+};
+
+const cardStyle = {
+  background: "#fff",
+  padding: "20px",
+  borderRadius: "12px",
+  boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
+};
+
+const buttonStyle = {
+  padding: "10px 20px",
+  background: "#4d79ff",
+  color: "#fff",
+  border: "none",
+  borderRadius: "8px",
+  cursor: "pointer"
+};
+
+const inputStyle = {
+  width: "100%",
+  padding: "10px",
+  marginBottom: "12px",
+  border: "1px solid #ddd",
+  borderRadius: "8px"
+};
+
 function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -28,55 +59,25 @@ function RegisterPage() {
   };
 
   return (
-    <div>
-      <h1>Register</h1>
+    <div style={pageStyle}>
+  <div
+    style={{
+      ...cardStyle,
+      maxWidth: "450px",
+      margin: "50px auto"
+    }}
+  >
+    <h1>Create Account</h1>
 
-      <form onSubmit={handleRegister}>
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) =>
-            setName(e.target.value)
-          }
-        />
+    <input placeholder="Name" style={inputStyle} />
+    <input placeholder="Email" style={inputStyle} />
+    <input type="password" placeholder="Password" style={inputStyle} />
 
-        <br />
-        <br />
-
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) =>
-            setEmail(e.target.value)
-          }
-        />
-
-        <br />
-        <br />
-
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) =>
-            setPassword(e.target.value)
-          }
-        />
-
-        <br />
-        <br />
-
-        <button type="submit">
-          Register
-        </button>
-      </form>
-      <p>
-            Already have an account?{" "}
-            <Link to="/">Login</Link>
-        </p>
-    </div>
+    <button style={buttonStyle}>
+      Register
+    </button>
+  </div>
+</div>
   );
 }
 
