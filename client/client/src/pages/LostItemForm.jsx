@@ -39,86 +39,145 @@ function LostItemForm() {
     }
   };
 
-  const pageStyle = {
-    padding: "30px",
-    fontFamily: "Arial",
-    background: "#f4f6f9",
-    minHeight: "100vh"
-  };
+  const styles = {
+    page: {
+      minHeight: "100vh",
+      background: "#f4f6f9",
+      padding: "20px",
+      fontFamily: "Arial, sans-serif",
+      boxSizing: "border-box",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
 
-  const cardStyle = {
-    background: "#fff",
-    padding: "25px",
-    borderRadius: "12px",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-    maxWidth: "600px",
-    margin: "0 auto"
-  };
+    card: {
+      background: "#fff",
+      width: "100%",
+      maxWidth: "650px",
+      padding: "25px",
+      borderRadius: "16px",
+      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+    },
 
-  const inputStyle = {
-    width: "100%",
-    padding: "10px",
-    marginBottom: "15px",
-    border: "1px solid #ddd",
-    borderRadius: "8px",
-    boxSizing: "border-box"
-  };
+    title: {
+      marginTop: 0,
+      marginBottom: "5px",
+    },
 
-  const buttonStyle = {
-    width: "100%",
-    padding: "12px",
-    background: "#ff4d4d",
-    color: "#fff",
-    border: "none",
-    borderRadius: "8px",
-    cursor: "pointer",
-    fontSize: "16px"
+    subtitle: {
+      color: "#666",
+      marginBottom: "25px",
+    },
+
+    label: {
+      display: "block",
+      marginBottom: "6px",
+      fontWeight: "bold",
+    },
+
+    input: {
+      width: "100%",
+      padding: "12px",
+      marginBottom: "15px",
+      border: "1px solid #ddd",
+      borderRadius: "8px",
+      boxSizing: "border-box",
+      fontSize: "14px",
+    },
+
+    textarea: {
+      width: "100%",
+      padding: "12px",
+      marginBottom: "15px",
+      border: "1px solid #ddd",
+      borderRadius: "8px",
+      boxSizing: "border-box",
+      minHeight: "100px",
+      resize: "vertical",
+      fontSize: "14px",
+    },
+
+    button: {
+      width: "100%",
+      padding: "12px",
+      background: "#4d79ff",
+      color: "#fff",
+      border: "none",
+      borderRadius: "8px",
+      cursor: "pointer",
+      fontSize: "16px",
+    },
   };
 
   return (
-    <div style={pageStyle}>
-      <div style={cardStyle}>
+    <div style={styles.page}>
+      <div style={styles.card}>
 
-        <h1>📦 Report Lost Item</h1>
+        <div style={{ textAlign: "center", marginBottom: "20px" }}>
 
-        <p style={{ color: "#666", marginBottom: "20px" }}>
-          Enter details about the lost item.
-        </p>
+          <h1
+            style={{
+              margin: "10px 0 5px 0",
+              fontSize: "32px",
+              fontWeight: "600"
+            }}
+          >
+            📦Report Lost Item
+          </h1>
+
+          <p
+            style={{
+              color: "#666",
+              margin: 0,
+              fontSize: "14px"
+            }}
+          >
+            Enter information about the item you lost.
+          </p>
+        </div>
 
         <form onSubmit={handleSubmit}>
 
+          <label style={styles.label}>Item Name</label>
           <input
             type="text"
-            placeholder="Item Name"
             value={itemName}
             onChange={(e) => setItemName(e.target.value)}
-            style={inputStyle}
+            style={styles.input}
+            placeholder="e.g. Black Wallet"
+            required
           />
 
-          <input
-            type="text"
-            placeholder="Description"
+          <label style={styles.label}>Description</label>
+          <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            style={inputStyle}
+            style={styles.textarea}
+            placeholder="Describe the item..."
+            required
           />
 
+          <label style={styles.label}>Date Lost</label>
           <input
             type="date"
             value={dateLost}
             onChange={(e) => setDateLost(e.target.value)}
-            style={inputStyle}
+            style={styles.input}
+            required
           />
 
+          <label style={styles.label}>Location Lost</label>
           <input
             type="text"
-            placeholder="Location Lost"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            style={inputStyle}
+            style={styles.input}
+            placeholder="e.g. Library"
+            required
           />
 
-          <button type="submit" style={buttonStyle}>
+          <button type="submit" style={styles.button}>
             Submit Lost Item
           </button>
 
