@@ -40,47 +40,89 @@ function LoginPage() {
     }
   };
 
-  const pageStyle = {
-  padding: "30px",
+const pageStyle = {
+  minHeight: "100vh",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  padding: "20px",
   fontFamily: "Arial",
   background: "#f4f6f9",
-  minHeight: "100vh"
+  boxSizing: "border-box"
 };
 
-  const cardStyle = {
-    background: "#fff",
-    padding: "20px",
-    borderRadius: "12px",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
-  };
+const cardStyle = {
+  background: "#fff",
+  padding: "40px",
+  borderRadius: "16px",
+  boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+  width: "100%",
+  maxWidth: "550px",
+  boxSizing: "border-box"
+};
 
-  const buttonStyle = {
-    padding: "10px 20px",
-    background: "#4d79ff",
-    color: "#fff",
-    border: "none",
-    borderRadius: "8px",
-    cursor: "pointer"
-  };
+const buttonStyle = {
+  width: "100%",
+  padding: "12px",
+  background: "#4d79ff",
+  color: "#fff",
+  border: "none",
+  borderRadius: "8px",
+  cursor: "pointer",
+  fontSize: "16px"
+};
 
-  const inputStyle = {
-    width: "100%",
-    padding: "10px",
-    marginBottom: "12px",
-    border: "1px solid #ddd",
-    borderRadius: "8px"
-  };
+const inputStyle = {
+  width: "100%",
+  padding: "12px",
+  marginBottom: "12px",
+  border: "1px solid #ddd",
+  borderRadius: "8px",
+  boxSizing: "border-box"
+};
 
   return (
-    <div style={pageStyle}>
   <div
     style={{
-      ...cardStyle,
-      maxWidth: "400px",
-      margin: "50px auto"
+      minHeight: "100vh",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      background: "#f4f6f9",
+      padding: "20px",
+      boxSizing: "border-box"
     }}
   >
-    <h1>📍 Lost & Found System</h1>
+    <div
+      style={{
+        background: "#fff",
+        padding: "30px",
+        borderRadius: "12px",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+        width: "100%",
+        maxWidth: "420px"
+      }}
+    >
+
+  <h1
+    style={{
+      textAlign: "center",
+      marginBottom: "10px",
+      fontSize: "2.2rem"
+    }}
+  >
+    📍 Lost & Found System
+  </h1>
+
+  <p
+    style={{
+      textAlign: "center",
+      color: "#666",
+      marginBottom: "25px"
+    }}
+  >
+    Welcome! Please Log in to continue.
+  </p>
 
       <input
         type="email"
@@ -88,32 +130,32 @@ function LoginPage() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         style={inputStyle}
-    />
+      />
 
-    <input
-      type="password"
-      placeholder="Password"
-      value={password}
-      onChange={(e) => setPassword(e.target.value)}
-      style={inputStyle}
-    />
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        style={inputStyle}
+      />
 
-    <button
-      style={buttonStyle}
-      onClick={handleLogin}
-    >
-      Login
-    </button>
+      <button
+        style={{
+          ...buttonStyle,
+          width: "100%"
+        }}
+        onClick={handleLogin}
+      >
+        Login
+      </button>
 
-      <p style={{ marginTop: "15px" }}>
-    Don't have an account?{" "}
-    <Link to="/register">
-      Register
-    </Link>
-  </p>
+      <p style={{ marginTop: "15px", textAlign: "center" }}>
+        Don't have an account? <Link to="/register">Register</Link>
+      </p>
+    </div>
   </div>
-</div>
-  );
+);
 }
 
 
