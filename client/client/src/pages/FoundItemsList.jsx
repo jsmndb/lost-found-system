@@ -21,30 +21,110 @@ function FoundItemsList() {
     fetchItems();
   }, []);
 
-  return (
-    <div style={{ padding: "20px" }}>
-      <h2>All Found Items</h2>
+  const styles = {
+    page: {
+      minHeight: "100vh",
+      background: "#f4f6f9",
+      padding: "20px",
+      fontFamily: "Arial, sans-serif",
+      boxSizing: "border-box",
+    },
 
-      {items.length === 0 ? (
-        <p>No found items yet</p>
-      ) : (
-        items.map((item) => (
-          <div
-            key={item.id}
+    container: {
+      width: "100%",
+      maxWidth: "900px",
+      margin: "0 auto",
+    },
+
+    header: {
+      textAlign: "center",
+      marginBottom: "30px",
+    },
+
+    card: {
+      background: "#fff",
+      borderRadius: "12px",
+      padding: "20px",
+      marginBottom: "15px",
+      boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+      borderLeft: "5px solid #4d79ff",
+    },
+
+    title: {
+      margin: "0 0 10px 0",
+      color: "#333",
+    },
+
+    text: {
+      margin: "6px 0",
+      color: "#555",
+    },
+
+    empty: {
+      textAlign: "center",
+      background: "#fff",
+      padding: "20px",
+      borderRadius: "12px",
+      boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+    },
+  };
+
+  return (
+    <div style={styles.page}>
+      <div style={styles.container}>
+
+        {/* HEADER */}
+        <div style={styles.header}>
+
+          <h1
             style={{
-              border: "1px solid gray",
-              padding: "10px",
-              marginBottom: "10px",
-              borderRadius: "8px"
+              margin: "8px 0 0 0",
+              fontSize: "32px",
+              fontWeight: "600",
             }}
           >
-            <h3>{item.item_name}</h3>
-            <p>{item.description}</p>
-            <p>Location: {item.location}</p>
-            <p>Date: {item.date_found}</p>
+            🎯Found Items
+          </h1>
+
+          <p
+            style={{
+              color: "#666",
+              marginTop: "8px",
+              fontSize: "14px",
+            }}
+          >
+            View all reported found items.
+          </p>
+        </div>
+
+        {/* LIST */}
+        {items.length === 0 ? (
+          <div style={styles.empty}>
+            <p>No found items found.</p>
           </div>
-        ))
-      )}
+        ) : (
+          items.map((item) => (
+            <div key={item.id} style={styles.card}>
+              <h3 style={styles.title}>
+                {item.item_name}
+              </h3>
+
+              <p style={styles.text}>
+                <strong>Description:</strong> {item.description}
+              </p>
+
+              <p style={styles.text}>
+                <strong>Location:</strong> {item.location}
+              </p>
+
+              <p style={styles.text}>
+                <strong>Date Found:</strong> {item.date_found}
+              </p>
+            </div>
+          ))
+        )}
+
+      </div>
     </div>
   );
 }

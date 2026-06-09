@@ -75,7 +75,6 @@ function LostItemsList() {
 
         {/* HEADER */}
         <div style={styles.header}>
-          <div style={{ fontSize: "40px" }}>📋</div>
 
           <h1
             style={{
@@ -84,13 +83,13 @@ function LostItemsList() {
               fontWeight: "600",
             }}
           >
-            Lost Items
+            📦Lost Items
           </h1>
 
           <p
             style={{
               color: "#666",
-              marginTop: "2px",
+              marginTop: "8px",
               fontSize: "14px",
             }}
           >
@@ -107,7 +106,7 @@ function LostItemsList() {
           items.map((item) => (
             <div key={item.id} style={styles.card}>
               <h3 style={styles.title}>
-                📦 {item.item_name}
+                {item.item_name}
               </h3>
 
               <p style={styles.text}>
