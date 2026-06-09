@@ -32,10 +32,29 @@ function FoundItemsList() {
       boxSizing: "border-box",
     },
 
+    backBtn: {
+      background: "transparent",
+      border: "none",
+      color: "#666",
+      cursor: "pointer",
+      fontSize: "14px",
+      fontWeight: "500",
+      marginTop: "25px",
+      justifyContent: "left",
+      display: "flex",
+      alignItems: "left",
+    },
+
+    centerWrapper: {
+      minHeight: "calc(100vh - 60px)",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+
     container: {
       width: "100%",
       maxWidth: "900px",
-      margin: "0 auto",
     },
 
     header: {
@@ -69,23 +88,12 @@ function FoundItemsList() {
       borderRadius: "12px",
       boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
     },
-
-    backBtn: {
-      background: "transparent",
-      border: "none",
-      color: "#666",
-      cursor: "pointer",
-      padding: 0,
-      marginBottom: "15px",
-      fontSize: "14px",
-      fontWeight: "500",
-      display: "block",
-    },
   };
 
   return (
     <div style={styles.page}>
 
+      {/* BACK BUTTON (NOT affected) */}
       <button
         style={styles.backBtn}
         onClick={() => navigate("/dashboard")}
@@ -93,60 +101,52 @@ function FoundItemsList() {
         ← Back to Dashboard
       </button>
 
-      <div style={styles.container}>
+      {/* CENTER AREA */}
+      <div style={styles.centerWrapper}>
 
-        {/* HEADER */}
-        <div style={styles.header}>
+        <div style={styles.container}>
 
-          <h1
-            style={{
-              margin: "8px 0 0 0",
-              fontSize: "32px",
-              fontWeight: "600",
-            }}
-          >
-            📋Found Items
-          </h1>
+          {/* HEADER */}
+          <div style={styles.header}>
+            <h1 style={{ fontSize: "32px", margin: "0" }}>
+              📋 Found Items
+            </h1>
+            <p style={{ color: "#666", fontSize: "14px" }}>
+              View all reported found items.
+            </p>
+          </div>
 
-          <p
-            style={{
-              color: "#666",
-              marginTop: "8px",
-              fontSize: "14px",
-            }}
-          >
-            View all reported found items.
-          </p>
+          {/* LIST */}
+          {items.length === 0 ? (
+            <div style={styles.empty}>
+              <p>No found items found.</p>
+            </div>
+          ) : (
+            items.map((item) => (
+              <div key={item.id} style={styles.card}>
+                <h3 style={styles.title}>
+                  {item.item_name}
+                </h3>
+
+                <p style={styles.text}>
+                  <strong>Description:</strong> {item.description}
+                </p>
+
+                <p style={styles.text}>
+                  <strong>Location:</strong> {item.location}
+                </p>
+
+                <p style={styles.text}>
+                  <strong>Date Found:</strong> {item.date_found}
+                </p>
+              </div>
+            ))
+          )}
+
         </div>
 
-        {/* LIST */}
-        {items.length === 0 ? (
-          <div style={styles.empty}>
-            <p>No found items found.</p>
-          </div>
-        ) : (
-          items.map((item) => (
-            <div key={item.id} style={styles.card}>
-              <h3 style={styles.title}>
-                {item.item_name}
-              </h3>
-
-              <p style={styles.text}>
-                <strong>Description:</strong> {item.description}
-              </p>
-
-              <p style={styles.text}>
-                <strong>Location:</strong> {item.location}
-              </p>
-
-              <p style={styles.text}>
-                <strong>Date Found:</strong> {item.date_found}
-              </p>
-            </div>
-          ))
-        )}
-
       </div>
+
     </div>
   );
 }
