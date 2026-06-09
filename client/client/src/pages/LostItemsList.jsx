@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function LostItemsList() {
   const [items, setItems] = useState([]);
+  const navigate = useNavigate();
 
   const fetchItems = async () => {
     try {
@@ -28,6 +30,12 @@ function LostItemsList() {
       padding: "20px",
       fontFamily: "Arial, sans-serif",
       boxSizing: "border-box",
+    },
+
+    container: {
+      width: "100%",
+      maxWidth: "900px",
+      margin: "0 auto",
     },
 
     container: {
@@ -67,10 +75,30 @@ function LostItemsList() {
       borderRadius: "12px",
       boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
     },
+
+    backBtn: {
+      background: "transparent",
+      border: "none",
+      color: "#666",
+      cursor: "pointer",
+      padding: 0,
+      marginBottom: "15px",
+      fontSize: "14px",
+      fontWeight: "500",
+      display: "block",
+    },
   };
 
   return (
     <div style={styles.page}>
+
+      <button
+        style={styles.backBtn}
+        onClick={() => navigate("/dashboard")}
+      >
+        ← Back to Dashboard
+      </button>
+
       <div style={styles.container}>
 
         {/* HEADER */}

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function MatchItems() {
   const [matches, setMatches] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMatches = async () => {
@@ -57,6 +59,18 @@ function MatchItems() {
       boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
     },
 
+        backBtn: {
+      background: "transparent",
+      border: "none",
+      color: "#666",
+      cursor: "pointer",
+      padding: 0,
+      marginBottom: "15px",
+      fontSize: "14px",
+      fontWeight: "500",
+      display: "block",
+    },
+
     badge: (score) => ({
       background:
         score >= 80
@@ -74,6 +88,14 @@ function MatchItems() {
 
   return (
     <div style={styles.page}>
+
+      <button
+        style={styles.backBtn}
+        onClick={() => navigate("/dashboard")}
+      >
+        ← Back to Dashboard
+      </button>
+
       <div style={styles.container}>
 
         {/* HEADER */}

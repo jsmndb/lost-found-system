@@ -1,8 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 function FoundItemForm() {
+  const navigate = useNavigate();
   const [itemName, setItemName] = useState("");
   const [description, setDescription] = useState("");
   const [dateFound, setDateFound] = useState("");
@@ -33,6 +35,7 @@ function FoundItemForm() {
       setDescription("");
       setDateFound("");
       setLocation("");
+      navigate("/found-items");
     } catch (error) {
       console.log(error);
       alert("Failed to add found item");
@@ -46,9 +49,12 @@ function FoundItemForm() {
       padding: "20px",
       fontFamily: "Arial, sans-serif",
       boxSizing: "border-box",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
+    },
+
+    container: {
+      width: "100%",
+      maxWidth: "900px",
+      margin: "0 auto",
     },
 
     card: {
@@ -108,14 +114,33 @@ function FoundItemForm() {
       cursor: "pointer",
       fontSize: "16px",
     },
+
+    backBtn: {
+      background: "transparent",
+      border: "none",
+      color: "#666",
+      cursor: "pointer",
+      padding: 0,
+      marginBottom: "15px",
+      fontSize: "14px",
+      fontWeight: "500",
+      display: "block",
+    },
   };
 
   return (
     <div style={styles.page}>
+
+      <button
+      style={styles.backBtn}
+      onClick={() => navigate("/dashboard")}
+    >
+      ← Back to Dashboard
+    </button>
+
       <div style={styles.card}>
-
+        
         <div style={{ textAlign: "center", marginBottom: "20px" }}>
-
           <h1
             style={{
               margin: "10px 0 5px 0",
