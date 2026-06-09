@@ -129,7 +129,7 @@ function LostItemForm() {
           <p
             style={{
               color: "#666",
-              margin: 0,
+              margin: "8px 0 0 0",
               fontSize: "14px"
             }}
           >

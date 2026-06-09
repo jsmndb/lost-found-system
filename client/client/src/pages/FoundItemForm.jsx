@@ -14,11 +14,10 @@ function FoundItemForm() {
     const token = localStorage.getItem("token");
     const decoded = jwtDecode(token);
     const userId = decoded.id;
-    try {
-      const userId = 1;
 
+    try {
       const response = await axios.post(
-        "http://localhost:5000/found-items",
+        "http://localhost:5000/lost-items",
         {
           user_id: userId,
           item_name: itemName,
@@ -40,46 +39,151 @@ function FoundItemForm() {
     }
   };
 
+  const styles = {
+    page: {
+      minHeight: "100vh",
+      background: "#f4f6f9",
+      padding: "20px",
+      fontFamily: "Arial, sans-serif",
+      boxSizing: "border-box",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+
+    card: {
+      background: "#fff",
+      width: "100%",
+      maxWidth: "650px",
+      padding: "25px",
+      borderRadius: "16px",
+      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+    },
+
+    title: {
+      marginTop: 0,
+      marginBottom: "5px",
+    },
+
+    subtitle: {
+      color: "#666",
+      marginBottom: "25px",
+    },
+
+    label: {
+      display: "block",
+      marginBottom: "6px",
+      fontWeight: "bold",
+    },
+
+    input: {
+      width: "100%",
+      padding: "12px",
+      marginBottom: "15px",
+      border: "1px solid #ddd",
+      borderRadius: "8px",
+      boxSizing: "border-box",
+      fontSize: "14px",
+    },
+
+    textarea: {
+      width: "100%",
+      padding: "12px",
+      marginBottom: "15px",
+      border: "1px solid #ddd",
+      borderRadius: "8px",
+      boxSizing: "border-box",
+      minHeight: "100px",
+      resize: "vertical",
+      fontSize: "14px",
+    },
+
+    button: {
+      width: "100%",
+      padding: "12px",
+      background: "#4d79ff",
+      color: "#fff",
+      border: "none",
+      borderRadius: "8px",
+      cursor: "pointer",
+      fontSize: "16px",
+    },
+  };
+
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Report Found Item</h2>
+    <div style={styles.page}>
+      <div style={styles.card}>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Item Name"
-          value={itemName}
-          onChange={(e) => setItemName(e.target.value)}
-        />
-        <br /><br />
+        <div style={{ textAlign: "center", marginBottom: "20px" }}>
 
-        <input
-          type="text"
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <br /><br />
+          <h1
+            style={{
+              margin: "10px 0 5px 0",
+              fontSize: "32px",
+              fontWeight: "600"
+            }}
+          >
+            📦Report Found Item
+          </h1>
 
-        <input
-          type="date"
-          value={dateFound}
-          onChange={(e) => setDateFound(e.target.value)}
-        />
-        <br /><br />
+          <p
+            style={{
+              color: "#666",
+              margin: "8px 0 0 0",
+              fontSize: "14px"
+            }}
+          >
+            Enter information about the item you found.
+          </p>
+        </div>
 
-        <input
-          type="text"
-          placeholder="Location Found"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-        />
-        <br /><br />
+        <form onSubmit={handleSubmit}>
 
-        <button type="submit">
-          Submit Found Item
-        </button>
-      </form>
+          <label style={styles.label}>Item Name</label>
+          <input
+            type="text"
+            value={itemName}
+            onChange={(e) => setItemName(e.target.value)}
+            style={styles.input}
+            placeholder="e.g. Black Wallet"
+            required
+          />
+
+          <label style={styles.label}>Description</label>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            style={styles.textarea}
+            placeholder="Describe the item..."
+            required
+          />
+
+          <label style={styles.label}>Date Found</label>
+          <input
+            type="date"
+            value={dateFound}
+            onChange={(e) => setDateFound(e.target.value)}
+            style={styles.input}
+            required
+          />
+
+          <label style={styles.label}>Location Found</label>
+          <input
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            style={styles.input}
+            placeholder="e.g. Library"
+            required
+          />
+
+          <button type="submit" style={styles.button}>
+            Submit Found Item
+          </button>
+
+        </form>
+
+      </div>
     </div>
   );
 }
