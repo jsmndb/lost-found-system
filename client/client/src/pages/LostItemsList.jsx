@@ -21,23 +21,111 @@ function LostItemsList() {
     fetchItems();
   }, []);
 
-  return (
-    <div>
-      <h2>All Lost Items</h2>
+  const styles = {
+    page: {
+      minHeight: "100vh",
+      background: "#f4f6f9",
+      padding: "20px",
+      fontFamily: "Arial, sans-serif",
+      boxSizing: "border-box",
+    },
 
-      {items.length === 0 ? (
-        <p>No lost items found</p>
-      ) : (
-        items.map((item) => (
-          <div key={item.id}>
-            <h3>{item.item_name}</h3>
-            <p>{item.description}</p>
-            <p>Location: {item.location}</p>
-            <p>Date: {item.date_lost}</p>
-            <hr />
+    container: {
+      width: "100%",
+      maxWidth: "900px",
+      margin: "0 auto",
+    },
+
+    header: {
+      textAlign: "center",
+      marginBottom: "30px",
+    },
+
+    card: {
+      background: "#fff",
+      borderRadius: "12px",
+      padding: "20px",
+      marginBottom: "15px",
+      boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+      borderLeft: "5px solid #ff4d4d",
+    },
+
+    title: {
+      margin: "0 0 10px 0",
+      color: "#333",
+    },
+
+    text: {
+      margin: "6px 0",
+      color: "#555",
+    },
+
+    empty: {
+      textAlign: "center",
+      background: "#fff",
+      padding: "20px",
+      borderRadius: "12px",
+      boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+    },
+  };
+
+  return (
+    <div style={styles.page}>
+      <div style={styles.container}>
+
+        {/* HEADER */}
+        <div style={styles.header}>
+          <div style={{ fontSize: "40px" }}>📋</div>
+
+          <h1
+            style={{
+              margin: "8px 0 0 0",
+              fontSize: "32px",
+              fontWeight: "600",
+            }}
+          >
+            Lost Items
+          </h1>
+
+          <p
+            style={{
+              color: "#666",
+              marginTop: "2px",
+              fontSize: "14px",
+            }}
+          >
+            View all reported lost items.
+          </p>
+        </div>
+
+        {/* LIST */}
+        {items.length === 0 ? (
+          <div style={styles.empty}>
+            <p>No lost items found.</p>
           </div>
-        ))
-      )}
+        ) : (
+          items.map((item) => (
+            <div key={item.id} style={styles.card}>
+              <h3 style={styles.title}>
+                📦 {item.item_name}
+              </h3>
+
+              <p style={styles.text}>
+                <strong>Description:</strong> {item.description}
+              </p>
+
+              <p style={styles.text}>
+                <strong>Location:</strong> {item.location}
+              </p>
+
+              <p style={styles.text}>
+                <strong>Date Lost:</strong> {item.date_lost}
+              </p>
+            </div>
+          ))
+        )}
+
+      </div>
     </div>
   );
 }
