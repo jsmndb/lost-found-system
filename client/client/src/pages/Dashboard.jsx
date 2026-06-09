@@ -83,6 +83,7 @@ function Dashboard() {
       background: "#fff",
       padding: "15px",
       borderRadius: "12px",
+      marginBottom: "8px",
       cursor: "pointer",
       minHeight: "90px",
       boxShadow: "0 2px 8px rgba(0,0,0,0.08)",

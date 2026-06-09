@@ -7,7 +7,10 @@ function MatchItems() {
   useEffect(() => {
     const fetchMatches = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/match-items");
+        const res = await axios.get(
+          "http://localhost:5000/match-items"
+        );
+
         setMatches(res.data);
       } catch (err) {
         console.log(err);
@@ -17,74 +20,172 @@ function MatchItems() {
     fetchMatches();
   }, []);
 
+  const styles = {
+    page: {
+      minHeight: "100vh",
+      background: "#f4f6f9",
+      padding: "20px",
+      fontFamily: "Arial, sans-serif",
+      boxSizing: "border-box",
+    },
+
+    container: {
+      width: "100%",
+      maxWidth: "900px",
+      margin: "0 auto",
+    },
+
+    header: {
+      textAlign: "center",
+      marginBottom: "30px",
+    },
+
+    card: {
+      background: "#fff",
+      borderRadius: "10px",
+      padding: "5px",
+      marginBottom: "10px",
+      boxShadow: "0 2px 6px rgba(0,0,0,0.08)",
+      borderLeft: "4px solid gold",
+    },
+
+    empty: {
+      textAlign: "center",
+      background: "#fff",
+      padding: "20px",
+      borderRadius: "12px",
+      boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+    },
+
+    badge: (score) => ({
+      background:
+        score >= 80
+          ? "#28a745"
+          : score >= 50
+          ? "#ff9800"
+          : "#6c757d",
+      color: "#fff",
+      padding: "6px 12px",
+      borderRadius: "20px",
+      fontSize: "12px",
+      fontWeight: "bold",
+    }),
+  };
+
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial" }}>
-      <h2 style={{ marginBottom: "20px" }}>
-        🧠 Smart Match Results
-      </h2>
+    <div style={styles.page}>
+      <div style={styles.container}>
 
-      {matches.length === 0 ? (
-        <p>No matches found</p>
-      ) : (
-        matches.map((match, index) => {
+        {/* HEADER */}
+        <div style={styles.header}>
 
-          const score = match.score || 0;
+          <h1
+            style={{
+              margin: "8px 0 0 0",
+              fontSize: "32px",
+              fontWeight: "600",
+            }}
+          >
+            🧠Smart Matches
+          </h1>
 
-          return (
-            <div
-              key={index}
-              style={{
-                background: "#fff",
-                borderRadius: "12px",
-                padding: "15px",
-                marginBottom: "15px",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
-              }}
-            >
+          <p
+            style={{
+              color: "#666",
+              marginTop: "8px",
+              fontSize: "14px",
+            }}
+          >
+            Possible matches between lost and found items.
+          </p>
+        </div>
 
-              {/* HEADER */}
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <h3 style={{ margin: 0 }}>Possible Match</h3>
+        {/* MATCH LIST */}
+        {matches.length === 0 ? (
+          <div style={styles.empty}>
+            <p>No matches found.</p>
+          </div>
+        ) : (
+          matches.map((match, index) => {
+            const score = match.score || 0;
 
-                {/* BADGE */}
-                <span
+            return (
+              <div key={index} style={styles.card}>
+
+                {/* TOP ROW */}
+                <div
                   style={{
-                    background:
-                      score >= 80
-                        ? "green"
-                        : score >= 50
-                        ? "orange"
-                        : "gray",
-                    color: "white",
-                    padding: "5px 10px",
-                    borderRadius: "20px",
-                    fontSize: "12px"
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: "15px",
+                    flexWrap: "wrap",
+                    gap: "10px",
                   }}
                 >
-                  {score}% Match
-                </span>
-              </div>
+                  <h3
+                    style={{
+                      margin: 0,
+                      color: "#333",
+                      fontSize: "15px",
+                    }}
+                  >
+                    Possible Match
+                  </h3>
 
-              {/* CONTENT */}
-              <div style={{ marginTop: "10px" }}>
-                <p>
-                  📦 <b>Lost:</b> {match.lost_item.item_name}
+                  <span style={styles.badge(score)}>
+                    {score}% Match
+                  </span>
+                </div>
+
+                {/* LOST ITEM */}
+                <div
+                  style={{
+                    background: "#fafafa",
+                    padding: "12px",
+                    borderRadius: "8px",
+                    marginBottom: "10px",
+                    fontSize: "15px",
+                  }}
+                >
+                  <p style={{ margin: 0 }}>
+                    📦 <strong>Lost Item:</strong>{" "}
+                    {match.lost_item.item_name}
+                  </p>
+                </div>
+
+                {/* FOUND ITEM */}
+                <div
+                  style={{
+                    background: "#fafafa",
+                    padding: "12px",
+                    borderRadius: "8px",
+                    fontSize: "15px",
+                  }}
+                >
+                  <p style={{ margin: 0 }}>
+                    🎯 <strong>Found Item:</strong>{" "}
+                    {match.found_item.item_name}
+                  </p>
+                </div>
+
+                {/* FOOTER */}
+                <p
+                  style={{
+                    marginTop: "12px",
+                    fontSize: "12px",
+                    color: "#888",
+                  }}
+                >
+                  System auto-generated match suggestion
                 </p>
 
-                <p>
-                  🎯 <b>Found:</b> {match.found_item.item_name}
-                </p>
               </div>
+            );
+          })
+        )}
 
-              {/* FOOTER */}
-              <p style={{ fontSize: "12px", color: "gray" }}>
-                System auto-generated match
-              </p>
-
-            </div>
-          );
-        })
-      )}
+      </div>
     </div>
   );
 }

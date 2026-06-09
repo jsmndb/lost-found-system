@@ -83,7 +83,7 @@ function LostItemsList() {
               fontWeight: "600",
             }}
           >
-            📦Lost Items
+            📋Lost Items
           </h1>
 
           <p

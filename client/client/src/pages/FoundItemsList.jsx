@@ -83,7 +83,7 @@ function FoundItemsList() {
               fontWeight: "600",
             }}
           >
-            🎯Found Items
+            📋Found Items
           </h1>
 
           <p
