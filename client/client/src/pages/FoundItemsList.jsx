@@ -158,6 +158,10 @@ function FoundItemsList() {
                 />
               )}
 
+              <h3 style={styles.title}>
+                {item.item_name}
+              </h3>
+
                 <p style={styles.text}>
                   <strong>Description:</strong> {item.description}
                 </p>
