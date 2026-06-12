@@ -13,12 +13,12 @@ function LostItemForm() {
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const token = localStorage.getItem("token");
-    const decoded = jwtDecode(token);
-    const userId = decoded.id;
+  const token = localStorage.getItem("token");
+  const decoded = jwtDecode(token);
+  const userId = decoded.id;
 
     try {
       const formData = new FormData();
@@ -49,6 +49,8 @@ function LostItemForm() {
       setDescription("");
       setDateLost("");
       setLocation("");
+
+      navigate("/lost-items");
     } catch (error) {
       console.log(error);
       alert("Failed to add lost item");

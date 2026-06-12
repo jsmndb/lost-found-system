@@ -220,41 +220,41 @@ function FoundItemForm() {
             />
 
             {preview && (
-              <>
-                <img
-                  src={preview}
-                  alt="Preview"
-                  style={{
-                    width: "100%",
-                    maxHeight: "250px",
-                    objectFit: "cover",
-                    borderRadius: "8px",
-                    marginBottom: "10px",
-                    border: "1px solid #ddd",
-                  }}
-                />
+            <>
+              <img
+                src={preview}
+                alt="Preview"
+                style={{
+                  width: "100%",
+                  maxHeight: "250px",
+                  objectFit: "cover",
+                  borderRadius: "8px",
+                  marginBottom: "10px",
+                  border: "1px solid #ddd",
+                }}
+              />
 
-                <button
-                  type="button"
-                  onClick={() => {
-                    setImage(null);
-                    setPreview(null);
-                  }}
-                  style={{
-                    width: "100%",
-                    padding: "10px",
-                    background: "#dc3545",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: "8px",
-                    cursor: "pointer",
-                    marginBottom: "15px",
-                  }}
-                >
-                  Remove Image
-                </button>
-              </>
-            )}
+              <button
+                type="button"
+                onClick={() => {
+                  setImage(null);
+                  setPreview(null);
+                }}
+                style={{
+                  width: "100%",
+                  padding: "10px",
+                  background: "#dc3545",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  marginBottom: "15px",
+                }}
+              >
+                Remove Image
+              </button>
+            </>
+          )}
 
             <button type="submit" style={styles.button}>
               Submit Found Item
