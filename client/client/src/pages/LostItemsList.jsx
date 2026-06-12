@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 function LostItemsList() {
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
 
   const fetchItems = async () => {
     try {
@@ -115,13 +116,32 @@ function LostItemsList() {
             </p>
           </div>
 
+          {/* SEARCH BAR */}
+          <input
+            type="text"
+            placeholder="Search item..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{
+              width: "100%",
+              padding: "10px",
+              marginBottom: "15px",
+              border: "1px solid #ddd",
+              borderRadius: "8px"
+            }}
+          />
+
           {/* LIST */}
           {items.length === 0 ? (
             <div style={styles.empty}>
               <p>No lost items found.</p>
             </div>
           ) : (
-            items.map((item) => (
+            items
+              .filter((item) =>
+                item.item_name.toLowerCase().includes(searchTerm.toLowerCase())
+              )
+              .map((item) => (
               <div key={item.id} style={styles.card}>
 
               {item.image && (
