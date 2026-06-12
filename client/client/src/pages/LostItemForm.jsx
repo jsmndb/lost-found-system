@@ -10,6 +10,8 @@ function LostItemForm() {
   const [description, setDescription] = useState("");
   const [dateLost, setDateLost] = useState("");
   const [location, setLocation] = useState("");
+  const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,14 +21,25 @@ function LostItemForm() {
     const userId = decoded.id;
 
     try {
+      const formData = new FormData();
+
+      formData.append("user_id", userId);
+      formData.append("item_name", itemName);
+      formData.append("description", description);
+      formData.append("date_lost", dateLost);
+      formData.append("location", location);
+
+      if (image) {
+        formData.append("image", image);
+      }
+
       const response = await axios.post(
         "http://localhost:5000/lost-items",
+        formData,
         {
-          user_id: userId,
-          item_name: itemName,
-          description,
-          date_lost: dateLost,
-          location,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
 
@@ -184,6 +197,41 @@ function LostItemForm() {
               placeholder="e.g. Library"
               required
             />
+
+            <label style={styles.label}>
+              Upload Item Photo
+            </label>
+
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                const file = e.target.files[0];
+
+                if (file) {
+                  setImage(file);
+                  setPreview(URL.createObjectURL(file));
+                }
+              }}
+              style={{
+                marginBottom: "15px",
+              }}
+            />
+
+            {preview && (
+              <img
+                src={preview}
+                alt="Preview"
+                style={{
+                  width: "100%",
+                  maxHeight: "250px",
+                  objectFit: "cover",
+                  borderRadius: "8px",
+                  marginBottom: "15px",
+                  border: "1px solid #ddd",
+                }}
+              />
+            )}
 
             <button type="submit" style={styles.button}>
               Submit Lost Item

@@ -121,7 +121,7 @@ const inputStyle = {
       marginBottom: "25px"
     }}
   >
-    Welcome! Please Log in to continue.
+    Welcome! Please Login to continue.
   </p>
 
       <input

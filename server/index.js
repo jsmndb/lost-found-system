@@ -3,11 +3,31 @@ const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const db = require("./db");
+const multer = require("multer");
+const path = require("path");
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+
+  filename: (req, file, cb) => {
+    cb(
+      null,
+      Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+
+const upload = multer({
+  storage: storage,
+});
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use("/uploads", express.static("uploads"));
 
 app.get("/", (req, res) => {
     res.send("Lost and Found API is running");
@@ -194,35 +214,59 @@ app.get("/lost-items", (req, res) => {
     );
 });
 
-app.post("/lost-items", (req, res) => {
+app.post(
+  "/lost-items",
+  upload.single("image"),
+  (req, res) => {
+
     const {
+      user_id,
+      item_name,
+      description,
+      date_lost,
+      location
+    } = req.body;
+
+    const image = req.file
+      ? req.file.filename
+      : null;
+
+    const sql = `
+      INSERT INTO lost_items
+      (
         user_id,
         item_name,
         description,
         date_lost,
-        location
-    } = req.body;
-
-    const sql = `
-        INSERT INTO lost_items
-        (user_id, item_name, description, date_lost, location)
-        VALUES (?, ?, ?, ?, ?)
+        location,
+        image
+      )
+      VALUES (?, ?, ?, ?, ?, ?)
     `;
 
     db.query(
-        sql,
-        [user_id, item_name, description, date_lost, location],
-        (err, result) => {
-            if (err) {
-                return res.json(err);
-            }
-
-            res.json({
-                message: "Lost item added successfully"
-            });
+      sql,
+      [
+        user_id,
+        item_name,
+        description,
+        date_lost,
+        location,
+        image
+      ],
+      (err, result) => {
+        if (err) {
+          return res.json(err);
         }
+
+        res.json({
+          message:
+            "Lost item added successfully",
+        });
+      }
     );
-});
+  }
+);
 
 app.get("/lost-items", (req, res) => {
     db.query(
@@ -237,35 +281,59 @@ app.get("/lost-items", (req, res) => {
     );
 });
 
-app.post("/found-items", (req, res) => {
+app.post(
+  "/found-items",
+  upload.single("image"),
+  (req, res) => {
+
     const {
+      user_id,
+      item_name,
+      description,
+      date_found,
+      location
+    } = req.body;
+
+    const image = req.file
+      ? req.file.filename
+      : null;
+
+    const sql = `
+      INSERT INTO found_items
+      (
         user_id,
         item_name,
         description,
         date_found,
-        location
-    } = req.body;
-
-    const sql = `
-        INSERT INTO found_items
-        (user_id, item_name, description, date_found, location)
-        VALUES (?, ?, ?, ?, ?)
+        location,
+        image
+      )
+      VALUES (?, ?, ?, ?, ?, ?)
     `;
 
     db.query(
-        sql,
-        [user_id, item_name, description, date_found, location],
-        (err, result) => {
-            if (err) {
-                return res.json(err);
-            }
-
-            res.json({
-                message: "Found item added successfully"
-            });
+      sql,
+      [
+        user_id,
+        item_name,
+        description,
+        date_found,
+        location,
+        image
+      ],
+      (err, result) => {
+        if (err) {
+          return res.json(err);
         }
+
+        res.json({
+          message:
+            "Found item added successfully",
+        });
+      }
     );
-});
+  }
+);
 
     app.get("/found-items", (req, res) => {
     const sql = "SELECT * FROM found_items";
