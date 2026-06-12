@@ -93,7 +93,6 @@ function FoundItemsList() {
   return (
     <div style={styles.page}>
 
-      {/* BACK BUTTON (NOT affected) */}
       <button
         style={styles.backBtn}
         onClick={() => navigate("/dashboard")}
@@ -123,10 +122,21 @@ function FoundItemsList() {
             </div>
           ) : (
             items.map((item) => (
-              <div key={item.id} style={styles.card}>
-                <h3 style={styles.title}>
-                  {item.item_name}
-                </h3>
+               <div key={item.id} style={styles.card}>
+
+              {item.image && (
+                <img
+                  src={`http://localhost:5000/uploads/${item.image}`}
+                  alt={item.item_name}
+                  style={{
+                    width: "100%",
+                    maxHeight: "250px",
+                    objectFit: "cover",
+                    borderRadius: "10px",
+                    marginBottom: "15px",
+                  }}
+                />
+              )}
 
                 <p style={styles.text}>
                   <strong>Description:</strong> {item.description}
